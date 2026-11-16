@@ -1,0 +1,36 @@
+coverage_explorer:
+  ros__parameters:
+
+    use_sim_time: true
+
+    # 지도 및 좌표계
+    map_topic: "/map"
+    costmap_topic: "/global_costmap/costmap"
+    global_frame: "map"
+    robot_base_frame: "base_link"
+
+    # 탐색 후보 생성
+    waypoint_spacing: 0.8
+    min_obstacle_clearance: 0.3
+    max_costmap_value: 30
+    min_goal_distance: 0.4
+
+    # 방문 기록
+    visited_radius: 0.4
+    failed_radius: 0.4
+    max_goal_retries: 2
+
+    # 탐색 우선순위
+    distance_weight: 1.0
+    coverage_weight: 2.0
+
+    # 주변 회전 탐색
+    enable_scan: true
+    scan_angle: 6.283185
+    spin_timeout: 40.0
+
+    # 탐색 관리
+    navigation_timeout: 120.0
+    planning_timeout: 10.0
+    map_refresh_interval: 5.0
+    control_period: 0.5

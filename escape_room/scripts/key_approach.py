@@ -46,7 +46,7 @@ class KeyApproach(Node):
         msg_type = TwistStamped if self.stamped else Twist
 
         self.cmd_pub = self.create_publisher(
-            msg_type, '/cmd_vel', 10
+            msg_type, '/cmd_vel_approach', 10
         )
 
         # 열쇠 획득 상태 발행
@@ -81,7 +81,7 @@ class KeyApproach(Node):
 
     def scan_callback(self, msg):
         self.scan = msg
-        self.scan_time = time.monotonic()
+        self.scan_time = self.get_clock().now().nanoseconds / 1e9
 
     def detection_callback(self, msg):
         detections = json.loads(msg.data)
@@ -95,7 +95,7 @@ class KeyApproach(Node):
             keys, key=lambda obj: obj['area']
         ) if keys else None
 
-        self.detection_time = time.monotonic()
+        self.detection_time = self.get_clock().now().nanoseconds / 1e9
         self.frame_count += 1
 
         if self.key is None:
@@ -159,7 +159,7 @@ class KeyApproach(Node):
             self.stop()
             return
 
-        now = time.monotonic()
+        now = self.get_clock().now().nanoseconds / 1e9
 
         # 센서 데이터가 없거나 오래된 경우 정지
         if (

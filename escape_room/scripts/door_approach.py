@@ -76,7 +76,7 @@ class DoorApproach(Node):
         )
 
         self.cmd_pub = self.create_publisher(
-            TwistStamped, '/cmd_vel', 10
+            TwistStamped, '/cmd_vel_approach', 10
         )
 
         self.reached_pub = self.create_publisher(
@@ -109,7 +109,7 @@ class DoorApproach(Node):
 
     def scan_callback(self, msg):
         self.scan = msg
-        self.scan_time = time.monotonic()
+        self.scan_time = self.get_clock().now().nanoseconds / 1e9
 
     def detection_callback(self, msg):
 
@@ -124,7 +124,7 @@ class DoorApproach(Node):
             doors, key=lambda obj: obj['area']
         ) if doors else None
 
-        self.detection_time = time.monotonic()
+        self.detection_time = self.get_clock().now().nanoseconds / 1e9
         self.frame_count += 1
 
         if self.door is None:
@@ -185,7 +185,7 @@ class DoorApproach(Node):
     def control_loop(self):
 
         # 다른 이동 제어 노드가 있으면 제어권 대기
-        if self.count_publishers('/cmd_vel') > 1:
+        if self.count_publishers('/cmd_vel_approach') > 1:
             self.confirm_count = 0
             self.set_state('WAITING_FOR_CONTROL')
             return
@@ -201,7 +201,7 @@ class DoorApproach(Node):
             self.stop()
             return
 
-        now = time.monotonic()
+        now = self.get_clock().now().nanoseconds / 1e9
 
         # 센서 데이터 유효성 확인
         if (
@@ -329,7 +329,7 @@ def main(args=None):
 
         if (
             rclpy.ok()
-            and node.count_publishers('/cmd_vel') == 1
+            and node.count_publishers('/cmd_vel_approach') == 1
         ):
             node.stop()
 
