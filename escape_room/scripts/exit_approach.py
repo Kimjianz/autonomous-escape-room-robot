@@ -264,7 +264,7 @@ class ExitApproach(Node):
                 self.set_state('PASSAGE_BLOCKED')
                 return
 
-            self.move(0.08, 0.0)
+            self.move(0.18, 0.0)
             self.set_state('PASS_THROUGH_DOOR')
             return
 
@@ -286,7 +286,7 @@ class ExitApproach(Node):
                 self.set_state('EXIT_NOT_FOUND')
                 return
 
-            self.move(0.0, 0.2)
+            self.move(0.0, 0.4)
             self.set_state('SEARCHING_FOR_EXIT')
             return
 
@@ -302,8 +302,8 @@ class ExitApproach(Node):
             self.confirm_count = 0
 
             angular = max(
-                -0.25,
-                min(0.25, -0.008 * offset)
+                -0.5,
+                min(0.5, -0.016 * offset)
             )
 
             self.move(0.0, angular)
@@ -341,7 +341,7 @@ class ExitApproach(Node):
                 return
 
             speed = min(
-                0.08,
+                0.18,
                 0.3 * (distance - self.target_distance)
                 + 0.02
             )

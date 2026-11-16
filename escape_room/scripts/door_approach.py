@@ -232,7 +232,7 @@ class DoorApproach(Node):
                 self.set_state('DOOR_NOT_FOUND')
                 return
 
-            self.move(0.0, 0.2)
+            self.move(0.0, 0.4)
             self.set_state('SEARCHING_FOR_DOOR')
             return
 
@@ -248,8 +248,8 @@ class DoorApproach(Node):
             self.confirm_count = 0
 
             angular = max(
-                -0.25,
-                min(0.25, -0.008 * offset)
+                -0.5,
+                min(0.5, -0.016 * offset)
             )
 
             self.move(0.0, angular)
@@ -277,7 +277,7 @@ class DoorApproach(Node):
             self.confirm_count = 0
 
             speed = min(
-                0.08,
+                0.18,
                 0.3 * (distance - self.target_distance)
                 + 0.02
             )
