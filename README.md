@@ -175,17 +175,3 @@ FSM(Finite State Machine)을 기반으로 전체 방탈출 임무를 관리한�
 | STOP | 이동 명령 차단 및 정지 |
 
 선택된 이동 명령은 Collision Monitor를 거쳐 로봇으로 전달되며, LiDAR 센서 데이터를 기반으로 주변 장애물과의 충돌 위험에 대응한다.
-
-## 7. 프로젝트 구조 (Project Structure)
-
-| File | Description |
-| --- | --- |
-| escape_room.world | 방탈출 시뮬레이션 환경 |
-| escape_room.launch.py | 방탈출 환경 실행 |
-| object_detector.py | 색상 기반 객체 인식 |
-| distance_test.py | 카메라 및 LiDAR 연계 검증 |
-| key_approach.py | 열쇠 자율 접근 및 획득 |
-| key_remover.py | 열쇠 객체 자동 제거 |
-| door_approach.py | 문 탐색 및 자율 접근 |
-| door_opener.py | 조건부 문 자동 개방 |
-| exit_approach.py | 문 통과 및 탈출 성공 판단 |
